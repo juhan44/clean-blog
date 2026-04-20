@@ -26,7 +26,7 @@ https://templatemo.com/tm-608-daynight-admin
     <!-- Mobile Menu -->
     <div class="mobile-menu">
         <div class="mobile-menu-header">
-            <a href="admin_index.php" class="logo">
+            <a href="admin.php" class="logo">
                 <div class="logo-icon">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -42,7 +42,7 @@ https://templatemo.com/tm-608-daynight-admin
             </button>
         </div>
         <nav class="mobile-menu-nav">
-            <a href="admin_index.php" class="active">
+            <a href="admin.php" class="active">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="3" width="7" height="7" rx="1"/>
                     <rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -51,26 +51,12 @@ https://templatemo.com/tm-608-daynight-admin
                 </svg>
                 Dashboard
             </a>
-            <a href="projects.php">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                </svg>
-                Projects
-            </a>
             <a href="inbox.php">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                     <polyline points="22,6 12,13 2,6"/>
                 </svg>
                 Inbox
-            </a>
-            <a href="analytics.php">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="20" x2="18" y2="10"/>
-                    <line x1="12" y1="20" x2="12" y2="4"/>
-                    <line x1="6" y1="20" x2="6" y2="14"/>
-                </svg>
-                Analytics
             </a>
             <a href="settings.php">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -117,7 +103,7 @@ https://templatemo.com/tm-608-daynight-admin
         <nav class="top-nav">
             <div class="nav-container">
                 <div class="nav-left">
-                    <a href="admin_index.php" class="logo">
+                    <a href="admin.php" class="logo">
                         <div class="logo-icon">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -127,7 +113,7 @@ https://templatemo.com/tm-608-daynight-admin
                     </a>
                     <div class="nav-menu">
                         <div class="nav-item">
-                            <a href="admin_index.php" class="nav-link active">
+                            <a href="admin.php" class="nav-link active">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <rect x="3" y="3" width="7" height="7" rx="1"/>
                                     <rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -138,30 +124,12 @@ https://templatemo.com/tm-608-daynight-admin
                             </a>
                         </div>
                         <div class="nav-item">
-                            <a href="projects.php" class="nav-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                                </svg>
-                                Projects
-                            </a>
-                        </div>
-                        <div class="nav-item">
                             <a href="inbox.php" class="nav-link">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                                     <polyline points="22,6 12,13 2,6"/>
                                 </svg>
                                 Inbox
-                            </a>
-                        </div>
-                        <div class="nav-item">
-                            <a href="analytics.php" class="nav-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="18" y1="20" x2="18" y2="10"/>
-                                    <line x1="12" y1="20" x2="12" y2="4"/>
-                                    <line x1="6" y1="20" x2="6" y2="14"/>
-                                </svg>
-                                Analytics
                             </a>
                         </div>
                         <div class="nav-item">

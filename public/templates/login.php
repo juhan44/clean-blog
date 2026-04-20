@@ -75,7 +75,7 @@ https://templatemo.com/tm-608-daynight-admin
                         <label for="remember" style="font-size: 0.875rem; color: var(--text-secondary); cursor: pointer;">Remember me for 30 days</label>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='admin_index.php';">
+                    <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='admin.php';">
                         Sign In
                     </button>
                 </form>

@@ -1,4 +1,4 @@
-<<?php
+<?php
     include 'partials/header.php';
 ?>
         <!-- Page Header-->
