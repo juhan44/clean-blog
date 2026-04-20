@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - DayNight Admin</title>
     <script>if(localStorage.getItem("daynight-theme")==="carbon"){document.documentElement.classList.add("carbon");}</script>
-    <link rel="stylesheet" href="templatemo-daynight-style.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-daynight-style.css">
     <!--
 
 TemplateMo 608 DayNight Admin
@@ -75,7 +75,7 @@ https://templatemo.com/tm-608-daynight-admin
                         <label for="remember" style="font-size: 0.875rem; color: var(--text-secondary); cursor: pointer;">Remember me for 30 days</label>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='index.html';">
+                    <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); window.location.href='home.php';">
                         Sign In
                     </button>
                 </form>
@@ -113,6 +113,6 @@ https://templatemo.com/tm-608-daynight-admin
         </div>
     </div>
 
-    <script src="templatemo-daynight-script.js"></script>
+    <script src="../assets/js/templatemo-daynight-script.js"></script>
 </body>
 </html>

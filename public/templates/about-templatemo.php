@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About TemplateMo - Free HTML CSS Website Templates</title>
     <script>if(localStorage.getItem("daynight-theme")==="carbon"){document.documentElement.classList.add("carbon");}</script>
-    <link rel="stylesheet" href="templatemo-daynight-style.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-daynight-style.css">
     <style>
         /* About Page Specific Styles */
         .about-hero {
@@ -441,6 +441,6 @@
         </footer>
     </div>
 
-    <script src="templatemo-daynight-script.js"></script>
+    <script src="../assets/js/templatemo-daynight-script.js"></script>
 </body>
 </html>
