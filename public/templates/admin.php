@@ -44,6 +44,48 @@
             </tbody>
         </table>
     </div>
+    <h3 class="mb-4">Zoznam kategórií</h3>
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Názov kategórie</th>
+            <th>Slug</th>
+            <th>Popis</th>
+            <th class="text-center">Počet článkov</th>
+            <th>Dátum vytvorenia</th>
+            <th class="text-center">Akcie</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($categories as $cat): ?>
+            <tr>
+                <td>#<?php echo htmlspecialchars((string)$cat->id); ?></td>
+                <td><strong><?php echo htmlspecialchars($cat->name); ?></strong></td>
+                <td><code><?php echo htmlspecialchars($cat->slug); ?></code></td>
+                <td><?php echo htmlspecialchars($cat->description ?? 'Bez popisu'); ?></td>
+                <td class="text-center">
+                    <span class="badge bg-info text-dark">
+                        <?php echo htmlspecialchars((string)$cat->post_count); ?>
+                    </span>
+                </td>
+                <td><?php echo date('d.m.Y', strtotime($cat->created_at)); ?></td>
+                <td class="text-center">
+                    <a href="category_edit.php?id=<?php echo $cat->id; ?>" 
+                       class="btn btn-sm btn-warning">
+                       <i class="fas fa-edit"></i> Upraviť
+                    </a>
+                    
+                    <a href="category_delete.php?id=<?php echo $cat->id; ?>" 
+                       class="btn btn-sm btn-danger" 
+                       onclick="return confirm('Naozaj chcete zmazať túto kategóriu?')">
+                       <i class="fas fa-trash"></i> Zmazať
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 </main>
 
 <?php include 'partials/footer-admin.php'; ?>

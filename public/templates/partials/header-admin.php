@@ -1,3 +1,14 @@
+<?php
+    require_once '../../app/core/Database.php';
+    require_once '../../app/models/Category.php';
+
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $categoryManager = new Category($db);
+    $categories = $categoryManager->getAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
