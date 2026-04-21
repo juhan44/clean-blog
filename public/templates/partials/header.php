@@ -1,6 +1,6 @@
 <?php
     require '../../app/core/Helper.php';
-    require '../../app/core/Contact.php';
+    require '../../app/models/Contact.php';
     require '../../app/core/Database.php';
 
     $db = new Database();

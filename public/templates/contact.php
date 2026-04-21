@@ -54,15 +54,15 @@
                             <?php 
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-                                    $form = new ContactForm(
-                                        $_POST['name'] ?? '',
-                                        $_POST['email'] ?? '',
-                                        $_POST['message'] ?? ''
-                                    );
+                                  $db = new Database();
+                                  $pdo = $db->getConnection();
 
-   
-                                    $form->send('../../storage/messages.txt');
-                                } 
+                                  $contact = new Contact($pdo, $_POST);
+
+                                  if ($contact->store()){
+                                    echo "Sprava bola ulozena do databazy!"
+                                  }
+                                }
                             ?>
                         </div>
                     </div>
