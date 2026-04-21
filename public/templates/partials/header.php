@@ -1,5 +1,14 @@
 <?php
-    require '../../app/functions.php';
+    require '../../app/core/Helper.php';
+    require '../../app/core/Contact.php';
+    require '../../app/core/Database.php';
+
+    $db = new Database();
+    if($db->getConnection()){
+        echo 'Mam spojenie s databazou!';
+    } else{
+        echo 'Nemame spojenie s databazou!';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Clean Blog</title>
+        <title><?php echo Helper::getPageTitle(); ?></title>
         <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>

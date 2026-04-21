@@ -3,10 +3,15 @@
 class Redirect
 {
     private string $url;
-    
-    public static function to(string $url): void
+
+    public function __construct(string $url)
     {
-        header('Location: ' . $url);
+        $this->url = $url;
+    }
+
+    public function redirect(): void
+    {
+        header('Location: ' . $this->url);
         exit;
     }
 }
