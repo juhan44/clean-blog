@@ -16,4 +16,12 @@
     $stmt = $this->db->query($sql);
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
+    public function delete(int $id): bool
+    {
+        $sql = "DELETE FROM categories WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            'id' => $id
+            ]);
+    }
 }

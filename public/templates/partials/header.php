@@ -2,6 +2,7 @@
     require '../../app/core/Helper.php';
     require '../../app/models/Contact.php';
     require '../../app/core/Database.php';
+    require '../../app/models/Categories.php';
 
     $db = new Database();
     if($db->getConnection()){

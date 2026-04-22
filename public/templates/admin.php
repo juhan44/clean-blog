@@ -1,6 +1,30 @@
 <?php 
     include 'partials/header-admin.php'; 
     include 'partials/post_data.php'; // Načítame tie isté dáta ako na webe
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $categoryObj = new Category($db);
+    $postObj = new Post($db);
+
+    if (isset($_GET['action']) && $_GET['action'] === 'delete') {
+        $id = (int)$_GET['id'];
+        $type = $_GET['type'];
+
+        switch ($type) {
+            case 'category':
+                $categoryObj->delete($id);
+                break;
+            case 'post':
+                $postObj->delete($id);
+                break;
+        }
+
+        header("Location: admin.php?success=deleted");
+        exit();
+    }
+
+    $categories = $categoryObj->getAll();
 ?>
 
 <main class="main-content">
@@ -76,10 +100,10 @@
                        <i class="fas fa-edit"></i> Upraviť
                     </a>
                     
-                    <a href="category_delete.php?id=<?php echo $cat->id; ?>" 
-                       class="btn btn-sm btn-danger" 
-                       onclick="return confirm('Naozaj chcete zmazať túto kategóriu?')">
-                       <i class="fas fa-trash"></i> Zmazať
+                    <a href="?action=delete&type=category&id=<?php echo $cat->id; ?>" 
+                    class="btn btn-sm btn-danger" 
+                    onclick="return confirm('Naozaj vymazať kategóriu aj s článkami?')">
+                    <i class="fas fa-trash"></i> Delete
                     </a>
                 </td>
             </tr>
