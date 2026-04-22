@@ -16,4 +16,10 @@ class Contact
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($data);
     }
+    public function getAllMessages(): array 
+    {
+        $sql = "SELECT * FROM contacts ORDER BY id DESC";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

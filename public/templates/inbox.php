@@ -1,107 +1,105 @@
 <?php 
+    require_once '../../app/core/App.php';
+    
+    $database = new Database();
+    $db = $database->getConnection();
+    
+    $contactObj = new Contact($db);
+    $messages = $contactObj->getAllMessages();
+    
     include 'partials/header-admin.php';
 ?>
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <h1 class="greeting">Inbox</h1>
-                    <p class="greeting-sub">You have 3 unread messages</p>
+
+<main class="main-content">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+            <h1 class="greeting">Inbox</h1>
+            <p class="greeting-sub">Máte <?php echo count($messages); ?> správ</p>
+        </div>
+    </div>
+
+    <div class="inbox-container">
+        <div class="inbox-list">
+            <div class="inbox-header">
+                <div class="inbox-search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" placeholder="Hľadať...">
                 </div>
-                <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Compose</button>
             </div>
 
-            <!-- Inbox Split Pane -->
-            <div class="inbox-container">
-                <!-- Message List -->
-                <div class="inbox-list">
-                    <div class="inbox-header">
-                        <div class="inbox-search">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input type="text" placeholder="Search messages...">
+            <div class="message-items">
+                <?php if (empty($messages)): ?>
+                    <div style="padding: 20px; text-align: center; opacity: 0.5;">Žiadne správy</div>
+                <?php else: ?>
+                    <?php foreach ($messages as $index => $msg): ?>
+                        <div class="message-item <?php echo ($index === 0) ? 'active' : ''; ?>" 
+                             onclick="updateInboxView(this, '<?php echo addslashes(htmlspecialchars($msg->name)); ?>', '<?php echo addslashes(htmlspecialchars($msg->email)); ?>', '<?php echo addslashes(htmlspecialchars($msg->message)); ?>', '<?php echo addslashes(htmlspecialchars($msg->phone ?? 'Neuvedené')); ?>')">
+                            <div class="message-item-header">
+                                <span class="message-sender"><?php echo htmlspecialchars($msg->name); ?></span>
+                                <span class="message-time"><?php echo date('H:i', strtotime($msg->created_at ?? 'now')); ?></span>
+                            </div>
+                            <div class="message-subject">Správa z webu</div>
+                            <div class="message-excerpt"><?php echo htmlspecialchars(substr($msg->message, 0, 45)) . '...'; ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="message-view">
+            <?php if (!empty($messages)): $first = $messages[0]; ?>
+                <div class="message-view-header">
+                    <div class="message-view-title">
+                        <h2 id="view-name-top"><?php echo htmlspecialchars($first->name); ?></h2>
+                    </div>
+                    <div class="message-view-info">
+                        <div class="sender-avatar" id="view-avatar"><?php echo strtoupper(substr($first->name, 0, 1)); ?></div>
+                        <div class="sender-details">
+                            <div class="sender-name" id="view-name-small"><?php echo htmlspecialchars($first->name); ?></div>
+                            <div class="sender-email" id="view-email"><?php echo htmlspecialchars($first->email); ?></div>
+                            <div class="sender-email" id="view-phone" style="font-size: 0.75rem; margin-top: 2px; color: var(--accent);">
+                                Tel: <?php echo htmlspecialchars($first->phone ?? 'Neuvedené'); ?>
+                            </div>
                         </div>
                     </div>
-                    <div class="message-list">
-                        <div class="message-item active unread" onclick="selectMessage(this, 0)">
-                            <div class="message-avatar">SC</div>
-                            <div class="message-content">
-                                <div class="message-header"><span class="message-sender">Sarah Chen</span><span class="message-time">9:45 AM</span></div>
-                                <div class="message-subject">Project Update: Q1 Dashboard Redesign</div>
-                                <div class="message-preview">Hi Alex, I wanted to give you a quick update on the Q1 dashboard...</div>
-                            </div>
-                        </div>
-                        <div class="message-item unread" onclick="selectMessage(this, 1)">
-                            <div class="message-avatar" style="background: var(--success);">AB</div>
-                            <div class="message-content">
-                                <div class="message-header"><span class="message-sender">Analytics Bot</span><span class="message-time">8:00 AM</span></div>
-                                <div class="message-subject">Weekly Analytics Report</div>
-                                <div class="message-preview">Here's your weekly analytics summary for December 25-31...</div>
-                            </div>
-                        </div>
-                        <div class="message-item unread" onclick="selectMessage(this, 2)">
-                            <div class="message-avatar" style="background: #A855F7;">HR</div>
-                            <div class="message-content">
-                                <div class="message-header"><span class="message-sender">HR Team</span><span class="message-time">Yesterday</span></div>
-                                <div class="message-subject">New Team Member Introduction</div>
-                                <div class="message-preview">We're excited to announce that Michael Torres will be joining...</div>
-                            </div>
-                        </div>
-                        <div class="message-item" onclick="selectMessage(this, 0)">
-                            <div class="message-avatar" style="background: var(--warning);">MT</div>
-                            <div class="message-content">
-                                <div class="message-header"><span class="message-sender">Michael Torres</span><span class="message-time">Dec 30</span></div>
-                                <div class="message-subject">Re: API Documentation Review</div>
-                                <div class="message-preview">Thanks for the feedback! I've made the changes you suggested...</div>
-                            </div>
-                        </div>
-                        <div class="message-item" onclick="selectMessage(this, 0)">
-                            <div class="message-avatar" style="background: var(--success);">EW</div>
-                            <div class="message-content">
-                                <div class="message-header"><span class="message-sender">Emma Wilson</span><span class="message-time">Dec 29</span></div>
-                                <div class="message-subject">Design Review Meeting Notes</div>
-                                <div class="message-preview">Hi team, here are the notes from today's design review...</div>
-                            </div>
-                        </div>
-                        <div class="message-item" onclick="selectMessage(this, 0)">
-                            <div class="message-avatar" style="background: #A855F7;">JL</div>
-                            <div class="message-content">
-                                <div class="message-header"><span class="message-sender">James Lee</span><span class="message-time">Dec 28</span></div>
-                                <div class="message-subject">Code Review: Authentication Module</div>
-                                <div class="message-preview">I've completed the code review for the auth module. Overall looks...</div>
-                            </div>
-                        </div>
+                </div>
+                
+                <div class="message-view-content">
+                    <div id="view-body" style="line-height: 1.6; color: var(--text-primary);">
+                        <?php echo nl2br(htmlspecialchars($first->message)); ?>
                     </div>
                 </div>
 
-                <!-- Message View -->
-                <div class="message-view">
-                    <div class="message-view-header">
-                        <h2 class="message-view-subject">Project Update: Q1 Dashboard Redesign</h2>
-                        <div class="message-view-meta">
-                            <div class="message-view-sender">
-                                <div class="message-avatar">SC</div>
-                                <div><div class="message-view-sender-name">Sarah Chen</div><div class="message-view-sender-email">sarah.chen@company.com</div></div>
-                            </div>
-                            <div class="message-view-date">Jan 2, 2026 at 9:45 AM</div>
-                        </div>
-                    </div>
-                    <div class="message-view-body">
-                        <p>Hi Alex,</p>
-                        <p>I wanted to give you a quick update on the Q1 dashboard redesign project. We've completed the wireframes and initial mockups, and the team is ready to move into the development phase.</p>
-                        <p>Key highlights from our progress:</p>
-                        <p>• User research completed with 15 participants<br>• 3 design concepts presented to stakeholders<br>• Final direction approved by leadership<br>• Development sprint starting next Monday</p>
-                        <p>Could we schedule a quick sync tomorrow to go over the technical requirements? Let me know what time works best for you.</p>
-                        <p>Best regards,<br>Sarah</p>
-                    </div>
-                    <div class="message-view-reply">
-                        <textarea class="reply-input" placeholder="Type your reply..."></textarea>
-                        <div class="reply-actions">
-                            <button class="btn btn-secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>Attach</button>
-                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Send Reply</button>
-                        </div>
+                <div class="message-view-reply">
+                    <textarea class="reply-input" placeholder="Napísať poznámku alebo odpoveď..."></textarea>
+                    <div class="reply-actions">
+                        <button class="btn btn-primary">Odoslať odpoveď</button>
                     </div>
                 </div>
-            </div>
-        </main>
+            <?php else: ?>
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; opacity: 0.5;">
+                    Inbox je prázdny
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</main>
+
+<script>
+function updateInboxView(element, name, email, message, phone) {
+    document.getElementById('view-name-top').innerText = name;
+    document.getElementById('view-name-small').innerText = name;
+    document.getElementById('view-email').innerText = email;
+    document.getElementById('view-phone').innerText = 'Tel: ' + phone;
+    
+    document.getElementById('view-body').innerHTML = message.replace(/\n/g, '<br>');
+    
+    document.getElementById('view-avatar').innerText = name.charAt(0).toUpperCase();
+
+    const items = document.querySelectorAll('.message-item');
+    items.forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+}
+</script>
 
 <?php include 'partials/footer-admin.php'; ?>
