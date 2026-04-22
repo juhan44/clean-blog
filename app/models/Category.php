@@ -16,12 +16,22 @@
     $stmt = $this->db->query($sql);
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
-    public function delete(int $id): bool
-    {
+    public function delete(int $id): self {
         $sql = "DELETE FROM categories WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([
-            'id' => $id
-            ]);
+        $stmt->execute(['id' => $id]);
+
+        return $this; // Dôležité pre reťazenie
     }
+    public function create(array $data): bool {
+            $sql = "INSERT INTO categories (name, slug, description) 
+                    VALUES (:name, :slug, :description)";
+        
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([
+                'name'        => $data['name'],
+                'slug'        => $data['slug'],
+                'description' => $data['description']
+            ]);
+        }
 }

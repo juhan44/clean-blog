@@ -1,29 +1,19 @@
 <?php
 declare(strict_types=1);
 
-class Database
+class Contact
 {
-    private string $host = 'localhost';
-    private string $dbname = 'cleanblog';
-    private string $username = 'root';
-    private string $password = '';
-    private PDO $connection;
+    private PDO $db;
 
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->connect();
+        $this->db = $db;
     }
 
-    private function connect(): void
+    public function saveMessage(array $data): bool
     {
-        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
-        $this->connection = new PDO($dsn, $this->username, $this->password);
-        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    }
-
-    public function getConnection(): PDO
-    {
-        return $this->connection;
+        $sql = "INSERT INTO contacts (name, email, phone, message) VALUES (:name, :email, :phone, :message)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($data);
     }
 }
