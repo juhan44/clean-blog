@@ -34,4 +34,22 @@
                 'description' => $data['description']
             ]);
         }
+    public function getById(int $id) {
+        $sql = "SELECT * FROM categories WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function update(int $id, array $data): bool {
+        $sql = "UPDATE categories SET 
+                name = :name, 
+                slug = :slug, 
+                description = :description 
+                WHERE id = :id";
+    
+        $stmt = $this->db->prepare($sql);
+        $data['id'] = $id;
+        return $stmt->execute($data);
+    }
 }

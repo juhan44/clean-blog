@@ -1,14 +1,15 @@
 <?php
-    require '../../app/core/Helper.php';
-    require '../../app/models/Contact.php';
-    require '../../app/core/Database.php';
-    require '../../app/models/Categories.php';
+    require_once '../../app/core/Helper.php';
+    require_once '../../app/core/Database.php';
+    require_once '../../app/models/Contact.php';
+    require_once '../../app/models/Category.php'; 
+    require_once '../../app/models/Post.php'; // Toto si pravdepodobne zabudol pridať
 
-    $db = new Database();
-    if($db->getConnection()){
-        echo 'Mam spojenie s databazou!';
-    } else{
-        echo 'Nemame spojenie s databazou!';
+    $database = new Database();
+    $db = $database->getConnection();
+
+    if (!$db) {
+        die('Kritická chyba: Nepodarilo sa pripojiť k databáze.');
     }
 ?>
 
